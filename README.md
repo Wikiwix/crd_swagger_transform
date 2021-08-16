@@ -18,4 +18,6 @@ Then the tool can be used like
 
 ```sh
 kubectl get crds --output=json | crdswag > swagger-crds.json
+# or for a single CRD
+kubectl get crd specificcrds.example.com --output=json | crdswag > swagger-crds.json
 ```

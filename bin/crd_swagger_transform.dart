@@ -4,7 +4,10 @@ import 'dart:io';
 Future<void> main(List<String> arguments) async {
   final inputString = await systemEncoding.decodeStream(stdin);
   final dynamic kubectlOut = jsonDecode(inputString);
-  final crds = kubectlOut['items'] as List;
+
+  final crds = (kubectlOut is Map && kubectlOut.containsKey('items'))
+      ? kubectlOut['items'] as List
+      : [kubectlOut];
   final crdMap = {
     for (final crd in crds)
       for (final version in crd['spec']['versions'])
